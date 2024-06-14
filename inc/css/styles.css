@@ -1,0 +1,117 @@
+textarea#sbm_content{
+    width: 100%!important;
+    min-height: 200px;
+}
+p#sbm_content{
+    width: 100%!important;
+}
+
+#sbm_form{
+    font-family: inherit;
+    padding: 20px 40px;
+    background-color: antiquewhite;
+    border-radius: 6px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,.1);
+}
+
+#sbm_form input{
+    font-family: inherit;
+    padding: 5px 6px;
+    border: none;
+    border-bottom: 2px solid rgba(0,0,0,.3);
+    width: 100%;
+    outline: none;
+}
+
+#sbm_form input:focus{
+    font-family: inherit;
+    padding: 5px 6px;
+    border: none;
+    border-bottom: 2px solid rgba(0,0,0,.8);
+    width: 100%;
+    outline: none;
+}
+#sbm_form textarea{
+    outline: none;
+    font-family: inherit;
+    padding: 5px 6px;
+    border: none;
+    border-bottom: 2px solid rgba(0,0,0,.3);
+    width: 100%;
+    resize: none;
+}
+#sbm_form textarea:focus{
+    outline: none;
+    font-family: inherit;
+    padding: 5px 6px;
+    border: none;
+    border-bottom: 2px solid rgba(0,0,0,.8);
+    width: 100%;
+    resize: none;
+}
+
+#sbm_form #sbm_submit{
+    outline: none;
+    padding: 10px 20px;
+    width:fit-content;
+    border: none;
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: rgb(87, 87, 228);
+    color:white;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+#sbm_form #sbm_submit:hover{
+    padding: 10px 20px;
+    width:fit-content;
+    border: none;
+    font-size: .8rem;
+    text-transform: uppercase;
+    background-color: rgb(124, 124, 235);
+    color:rgb(37, 37, 37);
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    transform: translateY(-5px);
+}
+
+#sbm_form #sbm_submit:focus{
+    padding: 10px 20px;
+    width:fit-content;
+    border: none;
+    font-size: .8rem;
+    text-transform: uppercase;
+    background-color: rgb(124, 124, 235);
+    color:rgb(37, 37, 37);
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    transform: translateY(-5px);
+}
+
+.sbm{
+    .wrap {
+        width: 700px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      table.form-table {
+        width: 100%;
+      }
+      
+      th.scope {
+        text-align: left;
+        padding: 10px;
+      }
+      
+      td {
+        padding: 10px;
+      }
+      
+      .description {
+        font-size: 0.8em;
+        color: #666;
+      }
+}
