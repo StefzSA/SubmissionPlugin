@@ -40,18 +40,22 @@ function display_sbm_meta_box($post){
     foreach ($meta_boxes as $meta_box) {
         foreach ($meta_box['fields'] as $field) {
             $meta_value = (isset($meta_data[$field['name']]) ? $meta_data[$field['name']][0] : '');
-            echo '<p>';
             // Use appropriate HTML elements based on the field type
             switch ($field['type']) {
                 case 'textarea':
-                    echo '<p id="' . esc_attr($field['name']) . '">' . esc_textarea($meta_value) . '</p><br>';
+                    echo '<div id="' . esc_attr($field['name']) . '">';
+                    echo '<h2>Content:</h2>';
+                    echo '<p>' . esc_textarea($meta_value) . '</p>';
+                    echo '</div>';
                 break;
 
                 case 'email':
-                    echo '<p id="' . esc_attr($field['name']) . '">' . esc_attr($meta_value) . '</p><br>';
+                    echo '<div id="' . esc_attr($field['name']) . '">';
+                    echo '<h2>Email:</h2>';
+                    echo '<p>' . esc_textarea($meta_value) . '</p>';
+                    echo '</div>';
                 break;
             }
-            echo '</p>';
         }
     }
 }

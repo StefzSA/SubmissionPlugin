@@ -58,7 +58,11 @@ function sbm_detect_recaptcha()
     if ( !empty(get_option('sbm_recaptcha_site_key')) and !empty(get_option('sbm_recaptcha_secret_key'))) {
         $output = '<script>';
         $output .= "const siteKey = '" . get_option('sbm_recaptcha_site_key') . "';";
-        $output .= 'if (siteKey) { const script = document.createElement("script");script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`; document.head.appendChild(script); }';
+        $output .= 'if (siteKey) { 
+                        const script = document.createElement("script");
+                        script.src = `https://www.google.com/recaptcha/api.js?render=${siteKey}`; 
+                        document.head.appendChild(script); 
+                    }';
         $output .= '</script>';
         return $output;
     }
