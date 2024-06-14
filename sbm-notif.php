@@ -57,6 +57,8 @@ function sbm_notif_admin_menu()
 
 function sbm_notif_register_settings() {
   register_setting( 'sbm_notif_settings', 'sbm_notif_email', 'sanitize_email' ); // Register setting with validation
+  register_setting( 'sbm_notif_settings', 'sbm_recaptcha_site_key', '' ); //recaptcha site key
+  register_setting( 'sbm_notif_settings', 'sbm_recaptcha_secret_key', '' ); //recaptcha secret key
 }
 
 // Function to enqueue scripts and styles using add action func with a hook
