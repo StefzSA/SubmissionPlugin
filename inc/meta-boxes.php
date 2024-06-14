@@ -34,8 +34,7 @@ function add_sbm_meta_boxes()
 }
 
 //callback function to display metaboxes by echoing html
-function display_sbm_meta_box($post)
-{
+function display_sbm_meta_box($post){
     global $meta_boxes;
     $meta_data = get_post_meta($post->ID);
     foreach ($meta_boxes as $meta_box) {

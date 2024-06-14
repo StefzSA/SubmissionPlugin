@@ -114,6 +114,9 @@ p#sbm_content{
     border: solid 1px rgb(255, 100, 100);
     background-color: rgb(255, 226, 226);
 }
+.sbm-error-message{
+    color:rgb(190, 55, 55);
+}
 .sbm{
     .wrap {
         width: 700px;
