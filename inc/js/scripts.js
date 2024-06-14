@@ -1,28 +1,56 @@
-jQuery(document).ready(function($) {
-    $('#sbm_form').submit(function(event) {
-      // Clear any previous error messages
-      $('.error-message').remove();
-  
-      // Validate title
-      if ($.trim($('#title').val()) === '') {
-        $('#title').after('<span class="error-message">Please enter a title for your submission.</span>');
+jQuery(document).ready(function ($) {
+  $("#sbm_form").submit(function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    // Clear any previous error messages or response
+    $('.sbm-error-message').remove();
+    $("#sbm_response").empty();
+    $("#sbm_response").removeClass('r-success').removeClass('r-error');
+    
+    // Validate title
+    if ($.trim($("#sbm_title").val()) === "") {
+        $("#sbm_title").after('<span class="sbm-error-message">Please enter a title for your submission.</span>');
         return false;
-      }
+    }
   
-      // Validate content
-      if ($.trim($('#content').val()) === '') {
-        $('#content').after('<span class="error-message">Please enter some content for your submission.</span>');
+    // Validate content
+    if ($.trim($("#sbm_content").val()) === "") {
+        $("#sbm_content").after('<span class="sbm-error-message">Please enter some content for your submission.</span>');
         return false;
-      }
+    }
   
-      // Validate email (basic check)
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test($('#email').val())) {
-        $('#email').after('<span class="error-message">Please enter a valid email address.</span>');
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test($("#sbm_email").val())) {
+        $("#sbm_email").after('<span class="error-message">Please enter a valid email address.</span>');
         return false;
-      }
-  
-      // All validations pass, submit the form
-      return true;
+    }
+    
+    const data = {
+        sbm_title: $("#sbm_title").val(),
+        sbm_content: $("#sbm_content").val(),
+        sbm_email: $("#sbm_email").val(),
+        nonce: ajax.nonce,
+        action: ajax.action,
+    };
+
+    $.ajax({
+      url: ajax.url,
+      type: "POST",
+      data: data,
+      dataType: "json",
+      success: function (response) {
+        $('.sbm-error-message').remove();
+        if (response.success) {
+          $("#sbm_response").addClass('r-success').text( response.message );
+          $('#sbm_form')[0].reset();
+        } else {
+          $("#sbm_response").addClass('r-error').text( response.message );
+        }
+      },
+      error: function () {
+        $("#sbm_response").addClass('r-error').text('An error has occurred!');
+      },
     });
   });
+});

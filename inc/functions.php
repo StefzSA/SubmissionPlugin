@@ -23,13 +23,13 @@ function sbm_sanitize(){
         'email'     => $email
     );
 }
-
+//Function to insert 
 function sbm_insert($sbm)
 {
     $new_post = array(
         'post_title'    => $sbm['title'],
         'post_type'     => 'submissions', // Set post type to 'submissions'
-        'post_status'   => 'publish',
+        'post_status'   => 'publish', 
     );
 
     // Attempt to insert the new post
@@ -37,16 +37,20 @@ function sbm_insert($sbm)
     
     // Check if post was inserted successfully
     if (is_wp_error($post_id)) {
-        wp_die('Error saving submission: ' . $post_id->get_error_message(), 'Submission Error');
+        wp_send_json_error(["message" => 'Error saving submission: ' . $post_id->get_error_message(), 'Submission Error']);
+        wp_die();
     }
 
     add_post_meta($post_id, 'sbm_email', $sbm['email']);
     add_post_meta($post_id, 'sbm_content', $sbm['content']);
 
-    echo 'Submission successful!';
     return true;
 }
 
 function sbm_notif_settings_page(){
     require(SBM_NOTIF_DIR.'admin/sbm_settings_page.php');
 }
+
+add_action( 'wp_ajax_nopriv_sbm_notif_submit_form', 'sbm_notif_submit_form' );
+add_action( 'wp_ajax_sbm_notif_submit_form', 'sbm_notif_submit_form' );
+?>
