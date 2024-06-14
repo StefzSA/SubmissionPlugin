@@ -89,7 +89,31 @@ p#sbm_content{
     transition: all .3s ease-in-out;
     transform: translateY(-5px);
 }
-
+.sbm-form-controls{
+    display: flex;
+    align-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0px;
+    justify-content: space-between;
+}
+.sbm-form-controls #sbm_response{
+    width: 100%;
+    text-align: center;
+}
+.response{
+    border-radius: 2px;
+    padding: 5px;
+}
+.r-success{
+    border: solid 1px rgb(124, 124, 235);
+    background-color: rgb(215 215 247);
+}
+.r-error{
+    border: solid 1px rgb(255, 100, 100);
+    background-color: rgb(255, 226, 226);
+}
 .sbm{
     .wrap {
         width: 700px;

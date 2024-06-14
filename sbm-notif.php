@@ -64,6 +64,13 @@ function sbm_notif_enqueue_scripts()
 {
   wp_enqueue_style('sbm-notif-style', plugins_url('/inc/css/styles.css', __FILE__), array(), '1.0.0');
   wp_enqueue_script('sbm-notif-script', plugins_url('/inc/js/scripts.js', __FILE__), array('jquery'), '1.0.0', true);
+
+  wp_localize_script( 'sbm-notif-script', 'ajax', array(
+    'url'    => admin_url( 'admin-ajax.php' ),
+    'nonce'  => wp_create_nonce( 'sbm_form_nonce' ),
+    'action' => 'sbm_notif_submit_form'
+) );
+
 }
 
 add_action( 'init', 'sbm_notif_create_post_type' );
