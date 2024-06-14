@@ -7,9 +7,17 @@ function sbm_notif_shortcode($atts)
     'title' => 'User Submission Form',
   ), $atts);
 
+  $output = '';
+  $data_recap = 'false';
+  
+  if(sbm_detect_recaptcha()){
+    $data_recap = 'true';
+    $output .= sbm_detect_recaptcha();
+  }
+
   // Form output
-  $output = '<h3>' . esc_html($atts['title']) . '</h3>
-            <form id="sbm_form" method="post">
+  $output .= '<h3>' . esc_html($atts['title']) . '</h3>
+            <form id="sbm_form" method="post" data-recap="'.$data_recap.'">
               <input type="text" id="sbm_title" name="sbm_title" placeholder="Write a descriptive subject here"><br><br>
               <textarea id="sbm_content" name="sbm_content" rows="5" placeholder="Tell us what you think!"></textarea><br><br>
               <input type="email" id="sbm_email" name="sbm_email" placeholder="Your goes email here."><br><br>';
@@ -19,7 +27,6 @@ function sbm_notif_shortcode($atts)
               </div>
             </form>
   ';
-  echo sbm_detect_recaptcha();
   return $output;
 }
 add_shortcode('sbm_notif_shortcode', 'sbm_notif_shortcode'); //register the shortcode
