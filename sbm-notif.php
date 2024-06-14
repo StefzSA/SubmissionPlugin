@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: User Submission and Notification Plugin
  * Description: Allows users to submit posts from the front-end and notifies the admin.
@@ -9,6 +8,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: user-submission-notification
  */
+
 // Define plugin directory
 define('SBM_NOTIF_DIR', plugin_dir_path(__FILE__));
 
