@@ -1,4 +1,5 @@
 <?php
+//setup for metaboxes on submission post type
 $meta_boxes = array(
     array(
         'id' => 'sbm_details_meta_box',
@@ -23,7 +24,7 @@ $meta_boxes = array(
     ),
 );
 
-// Function to add metaboxes to the edit/add screen
+// Function to add metaboxes to the post type
 function add_sbm_meta_boxes()
 {
     global $meta_boxes;
@@ -33,7 +34,9 @@ function add_sbm_meta_boxes()
     }
 }
 
-//callback function to display metaboxes by echoing html
+//callback function to display metaboxes by echoing html, 
+//since I dont want to add new posts by admin panel or edit information from submissions
+//just echo html to show the content
 function display_sbm_meta_box($post){
     global $meta_boxes;
     $meta_data = get_post_meta($post->ID);
@@ -60,5 +63,5 @@ function display_sbm_meta_box($post){
     }
 }
 
-add_action('admin_menu', 'add_sbm_meta_boxes');
+add_action('admin_menu', 'add_sbm_meta_boxes'); //action to add the metaboxes
 ?>

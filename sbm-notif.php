@@ -67,19 +67,22 @@ function sbm_notif_enqueue_scripts()
   wp_enqueue_style('sbm-notif-style', plugins_url('/inc/css/styles.css', __FILE__), array(), '1.0.0');
   wp_enqueue_script('sbm-notif-script', plugins_url('/inc/js/scripts.js', __FILE__), array('jquery'), '1.0.0', true);
 
+  //localize script for ajax on the form
   wp_localize_script( 'sbm-notif-script', 'ajax', array(
     'url'    => admin_url( 'admin-ajax.php' ),
     'nonce'  => wp_create_nonce( 'sbm_form_nonce' ),
     'action' => 'sbm_notif_submit_form'
 ) );
-
 }
 
-add_action( 'init', 'sbm_notif_create_post_type' );
-add_action( 'admin_menu', 'sbm_notif_admin_menu' );
-add_action( 'admin_init', 'sbm_notif_register_settings' );
-add_action( 'admin_enqueue_scripts', 'sbm_notif_enqueue_scripts' );
-add_action( 'wp_enqueue_scripts', 'sbm_notif_enqueue_scripts' );
+add_action( 'init', 'sbm_notif_create_post_type' ); // action for creating post type
+add_action( 'admin_menu', 'sbm_notif_admin_menu' ); // action for creating menu item
+add_action( 'admin_init', 'sbm_notif_register_settings' ); // action for registering settings
+add_action( 'admin_enqueue_scripts', 'sbm_notif_enqueue_scripts' ); // Enqueue scripts for admin side
+add_action( 'wp_enqueue_scripts', 'sbm_notif_enqueue_scripts' ); // Enqueue scripts for user side
+
+add_action('wp_ajax_nopriv_sbm_notif_submit_form', 'sbm_notif_submit_form'); //Register ajax for user that are not logged in
+add_action('wp_ajax_sbm_notif_submit_form', 'sbm_notif_submit_form'); //Register ajax for user that are logged in
 
 require(SBM_NOTIF_DIR . 'inc/meta-boxes.php');
 require(SBM_NOTIF_DIR . 'inc/form.php');

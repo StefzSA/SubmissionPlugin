@@ -33,7 +33,8 @@ jQuery(document).ready(function ($) {
           $("#sbm_email").after('<span class="sbm-error-message">Please enter a valid email address.</span>');
           return false;
         }
-
+        
+        //sets the data for ajax call
         const data = {
           sbm_title: $("#sbm_title").val(),
           sbm_content: $("#sbm_content").val(),

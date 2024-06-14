@@ -1,4 +1,7 @@
 <?
+//Function to send the email notification
+//receives email and an array with data,
+//meant to be used with function sbm_sanitize()
 function sbm_mail($to, $data)
 {
     $subject = 'New User Submission from: ' . $data['sbm_email'];
@@ -11,6 +14,7 @@ function sbm_mail($to, $data)
     wp_mail($to, $subject, $message, $headers);
 }
 
+//sanitizes post data and returns sanitized in an array
 function sbm_sanitize()
 {
     // Sanitize data
@@ -24,7 +28,9 @@ function sbm_sanitize()
         'email'     => $email
     );
 }
-//Function to insert 
+//Function to insert a new post on submissions post type
+//sets title, type and status, checks if creates it and add the metadata to the post
+//returns true at the end of it
 function sbm_insert($sbm)
 {
     $new_post = array(
@@ -47,12 +53,15 @@ function sbm_insert($sbm)
 
     return true;
 }
-
+//Callback for the settings page
 function sbm_notif_settings_page()
 {
     require(SBM_NOTIF_DIR . 'admin/sbm_settings_page.php');
 }
 
+//Detects if recaptcha settings on the page have anything.
+//returns a script to add the recaptcha api with the site key to the head
+//used at the form shortcode function sbm_notif_shortcode()
 function sbm_detect_recaptcha()
 {
     if ( !empty(get_option('sbm_recaptcha_site_key')) and !empty(get_option('sbm_recaptcha_secret_key'))) {
@@ -69,6 +78,7 @@ function sbm_detect_recaptcha()
     return;
 }
 
+//Uses cURL to validate the token from the form with the secret key from the settings page.
 function recaptcha_validation()
 {
     $token = $_POST['token'];
@@ -82,6 +92,3 @@ function recaptcha_validation()
     $response = json_decode($response, true);
     return $response;
 }
-
-add_action('wp_ajax_nopriv_sbm_notif_submit_form', 'sbm_notif_submit_form');
-add_action('wp_ajax_sbm_notif_submit_form', 'sbm_notif_submit_form');

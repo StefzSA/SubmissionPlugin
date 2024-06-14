@@ -1,4 +1,6 @@
 <?php
+//Callback for the shortcode, prints the api script of recaptcha on detection
+//meaning the two needed keys are set up on the settings page.
 function sbm_notif_shortcode($atts)
 {
   $atts = shortcode_atts(array(
@@ -20,8 +22,9 @@ function sbm_notif_shortcode($atts)
   echo sbm_detect_recaptcha();
   return $output;
 }
-add_shortcode('sbm_notif_shortcode', 'sbm_notif_shortcode');
+add_shortcode('sbm_notif_shortcode', 'sbm_notif_shortcode'); //register the shortcode
 
+//Callback for the ajax call which gets data from the form
 function sbm_notif_submit_form()
 {
   // Check if form is submitted correctly
@@ -35,11 +38,17 @@ function sbm_notif_submit_form()
     wp_send_json_error(["message" => 'Submission failed, try again later!']);
     wp_die();
   }
-  $recaptcha = recaptcha_validation();
-  if (!$recaptcha['success']){
-    wp_send_json_error(["message" => 'Submission failed, try again later!']);
-    wp_die();
+
+  //Checks if recaptcha is enabled, meaning it has the two keys set up
+  //then validates the recaptcha by checking the response json from the cURL on recaptcha_validation()
+  if( sbm_detect_recaptcha() ){
+    $recaptcha = recaptcha_validation();
+    if (!$recaptcha['success']){
+      wp_send_json_error(["message" => 'Submission failed, try again later!']);
+      wp_die();
+    }
   }
+
   //Use custom function to sanitize and return sanitized data.
   //Then check if the custom function for inserting the data returned false.
   $sbm_data = sbm_sanitize();
@@ -54,5 +63,3 @@ function sbm_notif_submit_form()
   sbm_mail($adminEmail, array('sbm_title' => $sbm_data['title'], 'sbm_content' => $sbm_data['content'], 'sbm_email' => $sbm_data['email']));
   wp_send_json(["message" => 'Submission successful!', "success" => true]);
 }
-
-add_action('admin_post_sbm_notif_submit_form', 'sbm_notif_submit_form');
